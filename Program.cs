@@ -18,9 +18,13 @@ builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             // 3. Add Controllers
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                     .AddJsonOptions(options =>
+                     {
+                         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                     });
 
-            var app = builder.Build();
+var app = builder.Build();
 
             // 4. Swagger middleware
             if (app.Environment.IsDevelopment())
