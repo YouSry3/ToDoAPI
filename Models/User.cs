@@ -1,13 +1,20 @@
-﻿namespace ToDoApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ToDoApi.Models
 {
     public class User
     {
         public int Id { get; set; } // ID فريد للمستخدم
-        public string Username { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty; // تخزين كلمة السر بعد التشفير
 
-        // العلاقة: المستخدم لديه مجموعة مهام
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, ErrorMessage = "Name can't be longer than 100 characters")]
+        public string Username { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email format")]
+        public string Email { get; set; }
+        public string PasswordHash { get; set; } = string.Empty; 
+
         public ICollection<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
     }
 }
